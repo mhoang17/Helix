@@ -59,7 +59,7 @@ class PlusNode extends Node {
 
 }
 
-class BlockNode extends Node {
+class SemiNode extends Node {
 
     private Node left;
     private Node right;
