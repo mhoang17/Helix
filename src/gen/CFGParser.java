@@ -17,24 +17,25 @@ public class CFGParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		WS=1;
+		PLUS=1, ASSIGN=2, NUM=3, ID=4, WS=5;
 	public static final int
-		RULE_start = 0;
+		RULE_start = 0, RULE_aStmt = 1, RULE_stmt = 2, RULE_t = 3;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"start"
+			"start", "aStmt", "stmt", "t"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
+			null, "'+'", "'='"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, "WS"
+			null, "PLUS", "ASSIGN", "NUM", "ID", "WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -89,6 +90,9 @@ public class CFGParser extends Parser {
 	}
 
 	public static class StartContext extends ParserRuleContext {
+		public AStmtContext aStmt() {
+			return getRuleContext(AStmtContext.class,0);
+		}
 		public TerminalNode EOF() { return getToken(CFGParser.EOF, 0); }
 		public StartContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -115,7 +119,9 @@ public class CFGParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(2);
+			setState(8);
+			aStmt();
+			setState(9);
 			match(EOF);
 			}
 		}
@@ -130,9 +136,171 @@ public class CFGParser extends Parser {
 		return _localctx;
 	}
 
+	public static class AStmtContext extends ParserRuleContext {
+		public TerminalNode ID() { return getToken(CFGParser.ID, 0); }
+		public TerminalNode ASSIGN() { return getToken(CFGParser.ASSIGN, 0); }
+		public StmtContext stmt() {
+			return getRuleContext(StmtContext.class,0);
+		}
+		public AStmtContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_aStmt; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof CFGListener ) ((CFGListener)listener).enterAStmt(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof CFGListener ) ((CFGListener)listener).exitAStmt(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CFGVisitor ) return ((CFGVisitor<? extends T>)visitor).visitAStmt(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final AStmtContext aStmt() throws RecognitionException {
+		AStmtContext _localctx = new AStmtContext(_ctx, getState());
+		enterRule(_localctx, 2, RULE_aStmt);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(11);
+			match(ID);
+			setState(12);
+			match(ASSIGN);
+			setState(13);
+			stmt();
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class StmtContext extends ParserRuleContext {
+		public TContext t() {
+			return getRuleContext(TContext.class,0);
+		}
+		public TerminalNode PLUS() { return getToken(CFGParser.PLUS, 0); }
+		public StmtContext stmt() {
+			return getRuleContext(StmtContext.class,0);
+		}
+		public StmtContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_stmt; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof CFGListener ) ((CFGListener)listener).enterStmt(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof CFGListener ) ((CFGListener)listener).exitStmt(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CFGVisitor ) return ((CFGVisitor<? extends T>)visitor).visitStmt(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final StmtContext stmt() throws RecognitionException {
+		StmtContext _localctx = new StmtContext(_ctx, getState());
+		enterRule(_localctx, 4, RULE_stmt);
+		try {
+			setState(20);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,0,_ctx) ) {
+			case 1:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(15);
+				t();
+				setState(16);
+				match(PLUS);
+				setState(17);
+				stmt();
+				}
+				break;
+			case 2:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(19);
+				t();
+				}
+				break;
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class TContext extends ParserRuleContext {
+		public TerminalNode NUM() { return getToken(CFGParser.NUM, 0); }
+		public TContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_t; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof CFGListener ) ((CFGListener)listener).enterT(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof CFGListener ) ((CFGListener)listener).exitT(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CFGVisitor ) return ((CFGVisitor<? extends T>)visitor).visitT(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final TContext t() throws RecognitionException {
+		TContext _localctx = new TContext(_ctx, getState());
+		enterRule(_localctx, 6, RULE_t);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(22);
+			match(NUM);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\3\7\4\2\t\2\3\2\3"+
-		"\2\3\2\2\2\3\2\2\2\2\5\2\4\3\2\2\2\4\5\7\2\2\3\5\3\3\2\2\2\2";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\7\33\4\2\t\2\4\3"+
+		"\t\3\4\4\t\4\4\5\t\5\3\2\3\2\3\2\3\3\3\3\3\3\3\3\3\4\3\4\3\4\3\4\3\4\5"+
+		"\4\27\n\4\3\5\3\5\3\5\2\2\6\2\4\6\b\2\2\2\27\2\n\3\2\2\2\4\r\3\2\2\2\6"+
+		"\26\3\2\2\2\b\30\3\2\2\2\n\13\5\4\3\2\13\f\7\2\2\3\f\3\3\2\2\2\r\16\7"+
+		"\6\2\2\16\17\7\4\2\2\17\20\5\6\4\2\20\5\3\2\2\2\21\22\5\b\5\2\22\23\7"+
+		"\3\2\2\23\24\5\6\4\2\24\27\3\2\2\2\25\27\5\b\5\2\26\21\3\2\2\2\26\25\3"+
+		"\2\2\2\27\7\3\2\2\2\30\31\7\5\2\2\31\t\3\2\2\2\3\26";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

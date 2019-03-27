@@ -17,4 +17,34 @@ public interface CFGListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitStart(CFGParser.StartContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CFGParser#aStmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterAStmt(CFGParser.AStmtContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CFGParser#aStmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitAStmt(CFGParser.AStmtContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CFGParser#stmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterStmt(CFGParser.StmtContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CFGParser#stmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitStmt(CFGParser.StmtContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CFGParser#t}.
+	 * @param ctx the parse tree
+	 */
+	void enterT(CFGParser.TContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CFGParser#t}.
+	 * @param ctx the parse tree
+	 */
+	void exitT(CFGParser.TContext ctx);
 }
