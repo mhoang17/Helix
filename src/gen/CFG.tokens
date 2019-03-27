@@ -1,1 +1,13 @@
-WS=1
+PLUS=1
+ASSIGN=2
+BEGIN=3
+END=4
+SEMI=5
+NUM=6
+ID=7
+WS=8
+'+'=1
+'='=2
+'{'=3
+'}'=4
+';'=5
