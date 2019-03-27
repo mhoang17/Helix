@@ -59,6 +59,35 @@ class PlusNode extends Node {
 
 }
 
+class BlockNode extends Node {
+
+    private Node left;
+    private Node right;
+
+    public Node getLeft() {
+        return left;
+    }
+
+    public void setLeft(Node left) {
+        this.left = left;
+    }
+
+    public Node getRight() {
+        return right;
+    }
+
+    public void setRight(Node right) {
+        this.right = right;
+    }
+
+    @Override
+    public String toString() {
+        return "Block node\n"+
+                "Left node: " + getLeft().toString() + "\n" +
+                "Right node: " + getRight().toString() + "\n";
+    }
+}
+
 class NumNode extends Node {
 
     private int value;

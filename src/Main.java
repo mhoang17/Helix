@@ -7,7 +7,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        String string = "a = b+3+c";
+        String string = "{a = 3+6+7+8; b = 6; c = 8+9}";
         CharStream charStream = CharStreams.fromString(string);
 
         CFGLexer lexer = new CFGLexer(charStream);

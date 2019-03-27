@@ -19,10 +19,10 @@ public class CFGParser extends Parser {
 	public static final int
 		PLUS=1, ASSIGN=2, BEGIN=3, END=4, SEMI=5, NUM=6, ID=7, WS=8;
 	public static final int
-		RULE_start = 0, RULE_aStmt = 1, RULE_stmt = 2, RULE_t = 3;
+		RULE_start = 0, RULE_stmt = 1, RULE_stmts = 2, RULE_e = 3, RULE_t = 4;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"start", "aStmt", "stmt", "t"
+			"start", "stmt", "stmts", "e", "t"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -90,8 +90,8 @@ public class CFGParser extends Parser {
 	}
 
 	public static class StartContext extends ParserRuleContext {
-		public AStmtContext aStmt() {
-			return getRuleContext(AStmtContext.class,0);
+		public StmtContext stmt() {
+			return getRuleContext(StmtContext.class,0);
 		}
 		public TerminalNode EOF() { return getToken(CFGParser.EOF, 0); }
 		public StartContext(ParserRuleContext parent, int invokingState) {
@@ -119,9 +119,9 @@ public class CFGParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(8);
-			aStmt();
-			setState(9);
+			setState(10);
+			stmt();
+			setState(11);
 			match(EOF);
 			}
 		}
@@ -136,64 +136,17 @@ public class CFGParser extends Parser {
 		return _localctx;
 	}
 
-	public static class AStmtContext extends ParserRuleContext {
+	public static class StmtContext extends ParserRuleContext {
 		public TerminalNode ID() { return getToken(CFGParser.ID, 0); }
 		public TerminalNode ASSIGN() { return getToken(CFGParser.ASSIGN, 0); }
-		public StmtContext stmt() {
-			return getRuleContext(StmtContext.class,0);
+		public EContext e() {
+			return getRuleContext(EContext.class,0);
 		}
-		public AStmtContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
+		public TerminalNode BEGIN() { return getToken(CFGParser.BEGIN, 0); }
+		public StmtsContext stmts() {
+			return getRuleContext(StmtsContext.class,0);
 		}
-		@Override public int getRuleIndex() { return RULE_aStmt; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CFGListener ) ((CFGListener)listener).enterAStmt(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CFGListener ) ((CFGListener)listener).exitAStmt(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CFGVisitor ) return ((CFGVisitor<? extends T>)visitor).visitAStmt(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final AStmtContext aStmt() throws RecognitionException {
-		AStmtContext _localctx = new AStmtContext(_ctx, getState());
-		enterRule(_localctx, 2, RULE_aStmt);
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(11);
-			match(ID);
-			setState(12);
-			match(ASSIGN);
-			setState(13);
-			stmt();
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	public static class StmtContext extends ParserRuleContext {
-		public TContext t() {
-			return getRuleContext(TContext.class,0);
-		}
-		public TerminalNode PLUS() { return getToken(CFGParser.PLUS, 0); }
-		public StmtContext stmt() {
-			return getRuleContext(StmtContext.class,0);
-		}
+		public TerminalNode END() { return getToken(CFGParser.END, 0); }
 		public StmtContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -215,29 +168,35 @@ public class CFGParser extends Parser {
 
 	public final StmtContext stmt() throws RecognitionException {
 		StmtContext _localctx = new StmtContext(_ctx, getState());
-		enterRule(_localctx, 4, RULE_stmt);
+		enterRule(_localctx, 2, RULE_stmt);
 		try {
 			setState(20);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,0,_ctx) ) {
-			case 1:
+			switch (_input.LA(1)) {
+			case ID:
 				enterOuterAlt(_localctx, 1);
 				{
+				setState(13);
+				match(ID);
+				setState(14);
+				match(ASSIGN);
 				setState(15);
-				t();
-				setState(16);
-				match(PLUS);
-				setState(17);
-				stmt();
+				e(0);
 				}
 				break;
-			case 2:
+			case BEGIN:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(19);
-				t();
+				setState(16);
+				match(BEGIN);
+				setState(17);
+				stmts(0);
+				setState(18);
+				match(END);
 				}
 				break;
+			default:
+				throw new NoViableAltException(this);
 			}
 		}
 		catch (RecognitionException re) {
@@ -251,9 +210,177 @@ public class CFGParser extends Parser {
 		return _localctx;
 	}
 
+	public static class StmtsContext extends ParserRuleContext {
+		public StmtContext stmt() {
+			return getRuleContext(StmtContext.class,0);
+		}
+		public StmtsContext stmts() {
+			return getRuleContext(StmtsContext.class,0);
+		}
+		public TerminalNode SEMI() { return getToken(CFGParser.SEMI, 0); }
+		public StmtsContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_stmts; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof CFGListener ) ((CFGListener)listener).enterStmts(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof CFGListener ) ((CFGListener)listener).exitStmts(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CFGVisitor ) return ((CFGVisitor<? extends T>)visitor).visitStmts(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final StmtsContext stmts() throws RecognitionException {
+		return stmts(0);
+	}
+
+	private StmtsContext stmts(int _p) throws RecognitionException {
+		ParserRuleContext _parentctx = _ctx;
+		int _parentState = getState();
+		StmtsContext _localctx = new StmtsContext(_ctx, _parentState);
+		StmtsContext _prevctx = _localctx;
+		int _startState = 4;
+		enterRecursionRule(_localctx, 4, RULE_stmts, _p);
+		try {
+			int _alt;
+			enterOuterAlt(_localctx, 1);
+			{
+			{
+			setState(23);
+			stmt();
+			}
+			_ctx.stop = _input.LT(-1);
+			setState(30);
+			_errHandler.sync(this);
+			_alt = getInterpreter().adaptivePredict(_input,1,_ctx);
+			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
+				if ( _alt==1 ) {
+					if ( _parseListeners!=null ) triggerExitRuleEvent();
+					_prevctx = _localctx;
+					{
+					{
+					_localctx = new StmtsContext(_parentctx, _parentState);
+					pushNewRecursionContext(_localctx, _startState, RULE_stmts);
+					setState(25);
+					if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
+					setState(26);
+					match(SEMI);
+					setState(27);
+					stmt();
+					}
+					} 
+				}
+				setState(32);
+				_errHandler.sync(this);
+				_alt = getInterpreter().adaptivePredict(_input,1,_ctx);
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			unrollRecursionContexts(_parentctx);
+		}
+		return _localctx;
+	}
+
+	public static class EContext extends ParserRuleContext {
+		public TContext t() {
+			return getRuleContext(TContext.class,0);
+		}
+		public EContext e() {
+			return getRuleContext(EContext.class,0);
+		}
+		public TerminalNode PLUS() { return getToken(CFGParser.PLUS, 0); }
+		public EContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_e; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof CFGListener ) ((CFGListener)listener).enterE(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof CFGListener ) ((CFGListener)listener).exitE(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CFGVisitor ) return ((CFGVisitor<? extends T>)visitor).visitE(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final EContext e() throws RecognitionException {
+		return e(0);
+	}
+
+	private EContext e(int _p) throws RecognitionException {
+		ParserRuleContext _parentctx = _ctx;
+		int _parentState = getState();
+		EContext _localctx = new EContext(_ctx, _parentState);
+		EContext _prevctx = _localctx;
+		int _startState = 6;
+		enterRecursionRule(_localctx, 6, RULE_e, _p);
+		try {
+			int _alt;
+			enterOuterAlt(_localctx, 1);
+			{
+			{
+			setState(34);
+			t();
+			}
+			_ctx.stop = _input.LT(-1);
+			setState(41);
+			_errHandler.sync(this);
+			_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
+			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
+				if ( _alt==1 ) {
+					if ( _parseListeners!=null ) triggerExitRuleEvent();
+					_prevctx = _localctx;
+					{
+					{
+					_localctx = new EContext(_parentctx, _parentState);
+					pushNewRecursionContext(_localctx, _startState, RULE_e);
+					setState(36);
+					if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
+					setState(37);
+					match(PLUS);
+					setState(38);
+					t();
+					}
+					} 
+				}
+				setState(43);
+				_errHandler.sync(this);
+				_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			unrollRecursionContexts(_parentctx);
+		}
+		return _localctx;
+	}
+
 	public static class TContext extends ParserRuleContext {
-		public TerminalNode NUM() { return getToken(CFGParser.NUM, 0); }
 		public TerminalNode ID() { return getToken(CFGParser.ID, 0); }
+		public TerminalNode NUM() { return getToken(CFGParser.NUM, 0); }
 		public TContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -275,12 +402,12 @@ public class CFGParser extends Parser {
 
 	public final TContext t() throws RecognitionException {
 		TContext _localctx = new TContext(_ctx, getState());
-		enterRule(_localctx, 6, RULE_t);
+		enterRule(_localctx, 8, RULE_t);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(22);
+			setState(44);
 			_la = _input.LA(1);
 			if ( !(_la==NUM || _la==ID) ) {
 			_errHandler.recoverInline(this);
@@ -303,14 +430,44 @@ public class CFGParser extends Parser {
 		return _localctx;
 	}
 
+	public boolean sempred(RuleContext _localctx, int ruleIndex, int predIndex) {
+		switch (ruleIndex) {
+		case 2:
+			return stmts_sempred((StmtsContext)_localctx, predIndex);
+		case 3:
+			return e_sempred((EContext)_localctx, predIndex);
+		}
+		return true;
+	}
+	private boolean stmts_sempred(StmtsContext _localctx, int predIndex) {
+		switch (predIndex) {
+		case 0:
+			return precpred(_ctx, 2);
+		}
+		return true;
+	}
+	private boolean e_sempred(EContext _localctx, int predIndex) {
+		switch (predIndex) {
+		case 1:
+			return precpred(_ctx, 2);
+		}
+		return true;
+	}
+
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\n\33\4\2\t\2\4\3"+
-		"\t\3\4\4\t\4\4\5\t\5\3\2\3\2\3\2\3\3\3\3\3\3\3\3\3\4\3\4\3\4\3\4\3\4\5"+
-		"\4\27\n\4\3\5\3\5\3\5\2\2\6\2\4\6\b\2\3\3\2\b\t\2\27\2\n\3\2\2\2\4\r\3"+
-		"\2\2\2\6\26\3\2\2\2\b\30\3\2\2\2\n\13\5\4\3\2\13\f\7\2\2\3\f\3\3\2\2\2"+
-		"\r\16\7\t\2\2\16\17\7\4\2\2\17\20\5\6\4\2\20\5\3\2\2\2\21\22\5\b\5\2\22"+
-		"\23\7\3\2\2\23\24\5\6\4\2\24\27\3\2\2\2\25\27\5\b\5\2\26\21\3\2\2\2\26"+
-		"\25\3\2\2\2\27\7\3\2\2\2\30\31\t\2\2\2\31\t\3\2\2\2\3\26";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\n\61\4\2\t\2\4\3"+
+		"\t\3\4\4\t\4\4\5\t\5\4\6\t\6\3\2\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5"+
+		"\3\27\n\3\3\4\3\4\3\4\3\4\3\4\3\4\7\4\37\n\4\f\4\16\4\"\13\4\3\5\3\5\3"+
+		"\5\3\5\3\5\3\5\7\5*\n\5\f\5\16\5-\13\5\3\6\3\6\3\6\2\4\6\b\7\2\4\6\b\n"+
+		"\2\3\3\2\b\t\2.\2\f\3\2\2\2\4\26\3\2\2\2\6\30\3\2\2\2\b#\3\2\2\2\n.\3"+
+		"\2\2\2\f\r\5\4\3\2\r\16\7\2\2\3\16\3\3\2\2\2\17\20\7\t\2\2\20\21\7\4\2"+
+		"\2\21\27\5\b\5\2\22\23\7\5\2\2\23\24\5\6\4\2\24\25\7\6\2\2\25\27\3\2\2"+
+		"\2\26\17\3\2\2\2\26\22\3\2\2\2\27\5\3\2\2\2\30\31\b\4\1\2\31\32\5\4\3"+
+		"\2\32 \3\2\2\2\33\34\f\4\2\2\34\35\7\7\2\2\35\37\5\4\3\2\36\33\3\2\2\2"+
+		"\37\"\3\2\2\2 \36\3\2\2\2 !\3\2\2\2!\7\3\2\2\2\" \3\2\2\2#$\b\5\1\2$%"+
+		"\5\n\6\2%+\3\2\2\2&\'\f\4\2\2\'(\7\3\2\2(*\5\n\6\2)&\3\2\2\2*-\3\2\2\2"+
+		"+)\3\2\2\2+,\3\2\2\2,\t\3\2\2\2-+\3\2\2\2./\t\2\2\2/\13\3\2\2\2\5\26 "+
+		"+";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

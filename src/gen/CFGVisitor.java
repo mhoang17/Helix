@@ -17,17 +17,23 @@ public interface CFGVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStart(CFGParser.StartContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link CFGParser#aStmt}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitAStmt(CFGParser.AStmtContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link CFGParser#stmt}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitStmt(CFGParser.StmtContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CFGParser#stmts}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStmts(CFGParser.StmtsContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CFGParser#e}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitE(CFGParser.EContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link CFGParser#t}.
 	 * @param ctx the parse tree
