@@ -1,15 +1,13 @@
 import gen.CFGLexer;
 import gen.CFGParser;
-import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        String string = "a = 7+8+9+7+9+4";
+        String string = "a = b+3+c";
         CharStream charStream = CharStreams.fromString(string);
 
         CFGLexer lexer = new CFGLexer(charStream);
@@ -18,9 +16,7 @@ public class Main {
 
         ParseTree tree = parser.start();
 
-
-
-        ASTVisitor astVisitor = new ASTVisitor();
-        astVisitor.visit(tree);
+        BuildASTVisitor buildASTVisitor = new BuildASTVisitor();
+        buildASTVisitor.visit(tree);
     }
 }

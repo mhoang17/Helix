@@ -1,7 +1,13 @@
 PLUS=1
 ASSIGN=2
-NUM=3
-ID=4
-WS=5
+BEGIN=3
+END=4
+SEMI=5
+NUM=6
+ID=7
+WS=8
 '+'=1
 '='=2
+'{'=3
+'}'=4
+';'=5

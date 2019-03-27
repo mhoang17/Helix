@@ -23,7 +23,7 @@ class AssignNode extends Node {
 
     @Override
     public String toString() {
-        return "Assignment node\n"+
+        return "=\n"+
                 "Left node: " + getLeft().toString() + "\n" +
                 "Right node: " + getRight().toString() + "\n";
     }
@@ -52,7 +52,7 @@ class PlusNode extends Node {
 
     @Override
     public String toString() {
-        return "Plus node\n"+
+        return "+\n"+
                 "Left node: " + getLeft().toString() + "\n" +
                 "Right node: " + getRight().toString() + "\n";
     }
@@ -73,7 +73,7 @@ class NumNode extends Node {
 
     @Override
     public String toString() {
-        return "NUM node";
+        return "NUM: " + value;
     }
 }
 
@@ -91,6 +91,6 @@ class IDNode extends Node {
 
     @Override
     public String toString() {
-        return "ID node";
+        return "ID: " + value;
     }
 }
