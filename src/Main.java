@@ -7,7 +7,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        String string = "{a = 3+6+7+8; b = 6; c = 8+9}";
+        String string = "{a= 9; a = 3+8+8; b = 0; c=0}";
         CharStream charStream = CharStreams.fromString(string);
 
         CFGLexer lexer = new CFGLexer(charStream);
@@ -18,5 +18,6 @@ public class Main {
 
         BuildASTVisitor buildASTVisitor = new BuildASTVisitor();
         buildASTVisitor.visit(tree);
+
     }
 }
