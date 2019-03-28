@@ -17,7 +17,8 @@ public class CFGParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		PLUS=1, ASSIGN=2, BEGIN=3, END=4, SEMI=5, NUM=6, ID=7, WS=8;
+		PLUS=1, ASSIGN=2, BEGIN=3, END=4, SEMI=5, MEASURE=6, LPAREN=7, RPAREN=8, 
+		PLAY=9, NUM=10, ID=11, WS=12;
 	public static final int
 		RULE_start = 0, RULE_stmt = 1, RULE_stmts = 2, RULE_e = 3, RULE_t = 4;
 	private static String[] makeRuleNames() {
@@ -29,13 +30,14 @@ public class CFGParser extends Parser {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'+'", "'='", "'{'", "'}'", "';'"
+			null, "'+'", "'='", "'{'", "'}'", "';'", null, "'('", "')'", "'play'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, "PLUS", "ASSIGN", "BEGIN", "END", "SEMI", "NUM", "ID", "WS"
+			null, "PLUS", "ASSIGN", "BEGIN", "END", "SEMI", "MEASURE", "LPAREN", 
+			"RPAREN", "PLAY", "NUM", "ID", "WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -455,12 +457,12 @@ public class CFGParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\n\61\4\2\t\2\4\3"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\16\61\4\2\t\2\4\3"+
 		"\t\3\4\4\t\4\4\5\t\5\4\6\t\6\3\2\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5"+
 		"\3\27\n\3\3\4\3\4\3\4\3\4\3\4\3\4\7\4\37\n\4\f\4\16\4\"\13\4\3\5\3\5\3"+
 		"\5\3\5\3\5\3\5\7\5*\n\5\f\5\16\5-\13\5\3\6\3\6\3\6\2\4\6\b\7\2\4\6\b\n"+
-		"\2\3\3\2\b\t\2.\2\f\3\2\2\2\4\26\3\2\2\2\6\30\3\2\2\2\b#\3\2\2\2\n.\3"+
-		"\2\2\2\f\r\5\4\3\2\r\16\7\2\2\3\16\3\3\2\2\2\17\20\7\t\2\2\20\21\7\4\2"+
+		"\2\3\3\2\f\r\2.\2\f\3\2\2\2\4\26\3\2\2\2\6\30\3\2\2\2\b#\3\2\2\2\n.\3"+
+		"\2\2\2\f\r\5\4\3\2\r\16\7\2\2\3\16\3\3\2\2\2\17\20\7\r\2\2\20\21\7\4\2"+
 		"\2\21\27\5\b\5\2\22\23\7\5\2\2\23\24\5\6\4\2\24\25\7\6\2\2\25\27\3\2\2"+
 		"\2\26\17\3\2\2\2\26\22\3\2\2\2\27\5\3\2\2\2\30\31\b\4\1\2\31\32\5\4\3"+
 		"\2\32 \3\2\2\2\33\34\f\4\2\2\34\35\7\7\2\2\35\37\5\4\3\2\36\33\3\2\2\2"+

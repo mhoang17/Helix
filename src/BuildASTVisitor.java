@@ -1,6 +1,8 @@
 import gen.CFGBaseVisitor;
 import gen.CFGParser;
 
+import java.util.Collections;
+
 public class BuildASTVisitor extends CFGBaseVisitor<Node> {
 
     @Override
@@ -28,33 +30,37 @@ public class BuildASTVisitor extends CFGBaseVisitor<Node> {
         // Check if there's a block
         if (ctx.BEGIN() != null){
 
-            return visitStmts(ctx.stmts());
+            BlockNode blockNode = new BlockNode();
+
+            visitStmts(ctx.stmts(), blockNode);
+            Collections.reverse(blockNode.getNodeList());
+
+            System.out.println(blockNode.getNodeList());
+
+            return blockNode;
         }
 
         throw new IllegalNode("This is not a legal statement!");
     }
 
-    @Override
-    public Node visitStmts(CFGParser.StmtsContext ctx) {
+    private void visitStmts(CFGParser.StmtsContext ctx, BlockNode blockNode) {
 
-        // Detect semicolon
         if(ctx.SEMI() != null){
 
-            SemiNode semiNode = new SemiNode();
+            blockNode.addNode(visitStmt(ctx.stmt()));
 
-            semiNode.setLeft(visitStmts(ctx.stmts()));
-            semiNode.setRight(visitStmt(ctx.stmt()));
-
-            return semiNode;
+            visitStmts(ctx.stmts(), blockNode);
 
         }
-        // If no semicolon is detected, visit statement
         else if (ctx.stmt() != null) {
 
-            return visitStmt(ctx.stmt());
+            blockNode.addNode(visitStmt(ctx.stmt()));
+
+        } else {
+
+            throw new IllegalNode("Not a correct statement!");
         }
 
-        throw new IllegalNode("This is neither a block or a statement!");
     }
 
     @Override
@@ -102,4 +108,7 @@ public class BuildASTVisitor extends CFGBaseVisitor<Node> {
 
         throw new IllegalNode("Couldn't find a number or ID!");
     }
+
 }
+
+
