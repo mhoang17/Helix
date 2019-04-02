@@ -11,11 +11,29 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface CFGVisitor<T> extends ParseTreeVisitor<T> {
 	/**
+	 * Visit a parse tree produced by {@link CFGParser#program}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitProgram(CFGParser.ProgramContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link CFGParser#start}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitStart(CFGParser.StartContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CFGParser#dcls}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDcls(CFGParser.DclsContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CFGParser#processDcl}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitProcessDcl(CFGParser.ProcessDclContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link CFGParser#stmt}.
 	 * @param ctx the parse tree
@@ -23,21 +41,45 @@ public interface CFGVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStmt(CFGParser.StmtContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link CFGParser#stmts}.
+	 * Visit a parse tree produced by {@link CFGParser#playStruc}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitStmts(CFGParser.StmtsContext ctx);
+	T visitPlayStruc(CFGParser.PlayStrucContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link CFGParser#e}.
+	 * Visit a parse tree produced by {@link CFGParser#chord}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitE(CFGParser.EContext ctx);
+	T visitChord(CFGParser.ChordContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CFGParser#n}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitN(CFGParser.NContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CFGParser#aExp}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAExp(CFGParser.AExpContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link CFGParser#t}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitT(CFGParser.TContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CFGParser#x}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitX(CFGParser.XContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CFGParser#c}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitC(CFGParser.CContext ctx);
 }
