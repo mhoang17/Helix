@@ -29,18 +29,6 @@ public interface CFGVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitDcls(CFGParser.DclsContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link CFGParser#eDcl}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitEDcl(CFGParser.EDclContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link CFGParser#chordDcl}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitChordDcl(CFGParser.ChordDclContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link CFGParser#processDcl}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -71,17 +59,23 @@ public interface CFGVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitN(CFGParser.NContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link CFGParser#e}.
+	 * Visit a parse tree produced by {@link CFGParser#aExp}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitE(CFGParser.EContext ctx);
+	T visitAExp(CFGParser.AExpContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link CFGParser#t}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitT(CFGParser.TContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CFGParser#x}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitX(CFGParser.XContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link CFGParser#c}.
 	 * @param ctx the parse tree

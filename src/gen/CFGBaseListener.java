@@ -52,30 +52,6 @@ public class CFGBaseListener implements CFGListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterEDcl(CFGParser.EDclContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitEDcl(CFGParser.EDclContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterChordDcl(CFGParser.ChordDclContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitChordDcl(CFGParser.ChordDclContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterProcessDcl(CFGParser.ProcessDclContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -136,13 +112,13 @@ public class CFGBaseListener implements CFGListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterE(CFGParser.EContext ctx) { }
+	@Override public void enterAExp(CFGParser.AExpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitE(CFGParser.EContext ctx) { }
+	@Override public void exitAExp(CFGParser.AExpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -155,6 +131,18 @@ public class CFGBaseListener implements CFGListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitT(CFGParser.TContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterX(CFGParser.XContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitX(CFGParser.XContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

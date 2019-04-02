@@ -38,26 +38,6 @@ public interface CFGListener extends ParseTreeListener {
 	 */
 	void exitDcls(CFGParser.DclsContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CFGParser#eDcl}.
-	 * @param ctx the parse tree
-	 */
-	void enterEDcl(CFGParser.EDclContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CFGParser#eDcl}.
-	 * @param ctx the parse tree
-	 */
-	void exitEDcl(CFGParser.EDclContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CFGParser#chordDcl}.
-	 * @param ctx the parse tree
-	 */
-	void enterChordDcl(CFGParser.ChordDclContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CFGParser#chordDcl}.
-	 * @param ctx the parse tree
-	 */
-	void exitChordDcl(CFGParser.ChordDclContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link CFGParser#processDcl}.
 	 * @param ctx the parse tree
 	 */
@@ -108,15 +88,15 @@ public interface CFGListener extends ParseTreeListener {
 	 */
 	void exitN(CFGParser.NContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CFGParser#e}.
+	 * Enter a parse tree produced by {@link CFGParser#aExp}.
 	 * @param ctx the parse tree
 	 */
-	void enterE(CFGParser.EContext ctx);
+	void enterAExp(CFGParser.AExpContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CFGParser#e}.
+	 * Exit a parse tree produced by {@link CFGParser#aExp}.
 	 * @param ctx the parse tree
 	 */
-	void exitE(CFGParser.EContext ctx);
+	void exitAExp(CFGParser.AExpContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CFGParser#t}.
 	 * @param ctx the parse tree
@@ -127,6 +107,16 @@ public interface CFGListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitT(CFGParser.TContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CFGParser#x}.
+	 * @param ctx the parse tree
+	 */
+	void enterX(CFGParser.XContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CFGParser#x}.
+	 * @param ctx the parse tree
+	 */
+	void exitX(CFGParser.XContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CFGParser#c}.
 	 * @param ctx the parse tree

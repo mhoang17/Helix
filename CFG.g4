@@ -1,29 +1,32 @@
 grammar CFG;
 
-program: start EOF;
+program: importStmt* start EOF;
 
-start: (dcls | processDcl)*;
+importStmt: IMPORT PATH AS ID;
 
-dcls: eDcl SEMI | chordDcl SEMI;
+start: (dcls| processDcl)*;
 
 /* DECLARATION RULES*/
-eDcl: ETYPE ID ASSIGN e;
-chordDcl: CTYPE ID ASSIGN chord;
+dcls: ETYPE ID ASSIGN aExp
+    | CTYPE ID ASSIGN chord;
 processDcl: PTYPE ID LPAREN ID? RPAREN BEGIN stmt* END;
 
 /* STATEMENT RULES */
 stmt: dcls
-     | PLAY LPAREN (MEASURE COMMA)? playStruc RPAREN SEMI
-     | SEND LPAREN c COMMA e RPAREN SEMI
-     | REC LPAREN c COMMA x RPAREN SEMI;
+     | PLAY LPAREN (MEASURE COMMA)? playStruc RPAREN
+     | SEND LPAREN c COMMA aExp RPAREN
+     | REC LPAREN c COMMA x RPAREN
+     | IF LPAREN bExp RPAREN BEGIN stmt* END (ELSE BEGIN stmt* END)?
+     | WHILE LPAREN bExp RPAREN BEGIN stmt* END;
 
 /* MUSIC COMMANDS */
-playStruc: (chord | n) (COMMA chord | COMMA n | COMMA)*;
-chord: LPAREN NOTE (COMMA NOTE)* RPAREN | ID;
+playStruc: (chord | n) (COMMA (playStruc)?)*;
+chord: LPAREN n (COMMA n)* RPAREN | ID;
 n: NOTE;
 
 /* EXPRESSION RULES */
-e: t OP e | t;
+aExp: t OP aExp | LPAREN aExp RPAREN (OP aExp)? | t;
+bExp: aExp BOP aExp;
 
 /* TERMINALS */
 t: NUM | ID;
@@ -32,6 +35,7 @@ c: ID;
 
 /* OPERATORS*/
 OP: '+'|'-'|'*';
+BOP: '<' | '==' | '&&' | '||';
 ASSIGN: '=';
 BEGIN: '{';
 END:'}';
@@ -51,12 +55,18 @@ RPAREN: ')';
 PLAY: 'play';
 SEND: 'send';
 REC: 'receive';
+IF: 'if';
+ELSE: 'else';
+WHILE: 'while';
+IMPORT: 'import';
+AS: 'as';
 
 /* SYMBOLS */
 NUM: [0-9]+ ('.' [0-9]+)?;
 INT: [0-9];
 ID: [a-z]+;
 NOTE: [a-gA-G][0-9];
+PATH: (ID'/')+;
 
 /* WHITE SPACE */
 WS  :   (' '|'\r'|'\n'|'\t') -> channel(HIDDEN);
